@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>live2d demo online</title>
+</head>
+<body>
+<div id="app">
+    <div>
+        <p>
+            本项目非本人原创，代码和模型都是参考自github<br>
+            参考地址: <a href="https://github.com/imuncle/live2d" target="_blank">https://github.com/imuncle/live2d</a>
+        </p>
+        <div>
+            <div>请选择一个模型：</div>
+            <!-- radio选择模型 嵌套div实现简单按钮效果 -->
+            <div v-for="(model,index) in models" :key="index" @click="status.json = model.value"
+                 style="display: inline-block;cursor: pointer;border: 1px solid;border-radius: .5rem;margin: 1rem .5rem 0;min-width: 120px;text-align: center;padding: 5px;"
+                :style="{borderColor: (status.json == model.value ? '#0075ff':'rgba(0,0,0,.33)')}">
+                <label style="cursor: unset;margin-left: 8px">{{model.name}}</label>
+                <input type="radio" name="models" :value="model.value" v-model="status.json"
+                       style="margin: 3px 8px 0 0;cursor: unset">
+            </div>
+        </div>
+    </div>
+    <!-- pointer-events: none; 实现点击穿透 -->
+    <canvas class="live2d" id="live2d" width="300" height="300" style="pointer-events: none;"></canvas>
+</div>
+<script src="https://cdn.staticfile.org/vue/2.7.14/vue.js"></script>
+<script src="js/live2d.min.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#app',
+        watch: {
+            'status.json': {
+                handler(val, prev) {
+                    // 核心代码，通过这个方法重新加载json
+                    loadlive2d("live2d", this.status.json);
+                },
+                deep: true
+            }
+        },
+        data: {
+            status: {
+                json: '',
+                checkIndex: 0
+            },
+            models: [
+                {
+                    'name': '22娘(B站)',
+                    'value': 'model/22/model.default.json'
+                },
+                {
+                    'name': '33娘(B站)',
+                    'value': 'model/33/model.default.json'
+                },
+                {
+                    'name': '羊栖菜(黑猫)',
+                    'value': 'model/hijiki/hijiki.model.json'
+                },
+                {
+                    'name': '山药泥(白猫)',
+                    'value': 'model/tororo/tororo.model.json'
+                },
+                {
+                    'name': '小埋',
+                    'value': 'model/xiaomai/xiaomai.model.json'
+                },
+                {
+                    'name': '碗中小年糕',
+                    'value': 'model/wanko/wanko.model.json'
+                },
+                {
+                    'name': '血小板',
+                    'value': 'model/platelet-3/kesyoban.model.json'
+                }
+            ]
+        },
+        methods: {},
+        mounted() {
+            // 给个默认值 变化后会触发watch
+            this.status.json = this.models[0].value;
+        }
+    });
+
+</script>
+</body>
+</html>
