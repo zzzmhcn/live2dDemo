@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>live2d demo</title>
+</head>
+<body>
+<!-- 写一个canvas的dom id必须和加载时候的对应 -->
+<canvas id="live2d" width="300" height="300"></canvas>
+<!-- 用cdn方式引入 -->
+<script src="https://fastly.jsdelivr.net/gh/zzzmhcn/live2dDemo@1.0.0/js/live2d.min.js"></script>
+<script>
+    <!-- 加载模型 -->
+    loadlive2d('live2d', 'https://fastly.jsdelivr.net/gh/zzzmhcn/live2dDemo@1.0.0/model/platelet-3/kesyoban.model.json');
+</script>
+</body>
+</html>
